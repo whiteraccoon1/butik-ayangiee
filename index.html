@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butik nuik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f3f8;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures body fills the full height of the screen */
+        }
+        main {
+            flex-grow: 1; /* Ensures main content area takes up the available space */
+        }
+        nav {
+            background: #ffcad4;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .menu-title {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+            color: #5c3c92;
+            font-size: 18px;
+        }
+        .menu-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            background: #ffcad4;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .menu li {
+            padding: 10px;
+        }
+        .menu li a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #5c3c92;
+            display: block;
+        }
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 202, 212, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #5c3c92;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slider {
+            width: 80%;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .slide-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+        }
+        .full-image {
+            width: 100%;
+            margin-top: 20px;
+        }
+        footer {
+            background: #ffcad4;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            /* Removed position: fixed so it won't overlap content */
+        }
+        #products, #contact {
+            display: none;
+        }
+        /* Product grid styles */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;  /* Distributes items evenly */
+            gap: 20px;  /* Adds space between items */
+            margin-top: 20px;
+        }
+        .product-item {
+            width: 200px;  /* Fixed width for each product */
+            text-align: center;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-item img {
+            width: 100%;  /* Makes images responsive */
+            height: auto;
+            border-radius: 8px;
+        }
+        .product-item h3 {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #333;
+        }
+        .product-item p {
+            color: #888;
+            font-size: 14px;
+        }
+        .product-item:hover {
+            transform: translateY(-5px);  /* Adds a slight hover effect */
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            .product-item {
+                width: 45%;  /* Two items per row on smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-item {
+                width: 100%;  /* One item per row on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cover" id="cover">Memuat...</div>
+
+<nav>
+    <span class="menu-title" id="menuTitle">Beranda</span>
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+    <ul class="menu" id="menu">
+        <li><a href="#home" onclick="navigate('home', 'Beranda')">Beranda</a></li>
+        <li><a href="#products" onclick="navigate('products', 'Produk')">Produk</a></li>
+        <li><a href="#contact" onclick="navigate('contact', 'Kontak')">Kontak</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="home">
+        <h1>Selamat Datang di Butik Nuik</h1>
+        <div class="slider">
+            <div class="slide-container" id="slideContainer">
+                <div class="slide"><img src="baju3.jpeg" alt="Produk 1"></div>
+                <div class="slide"><img src="baju2.jpeg" alt="Produk 2"></div>
+                <div class="slide"><img src="baju1.jpeg" alt="Produk 3"></div>
+            </div>
+        </div>
+        <img src="anniv.jpg" alt="Full Gambar" class="full-image">
+    </section>
+
+    <section id="products">
+        <h2>Semua Produk</h2>
+        <div class="product-grid">
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+            <div class="product-item">
+                <a href="https://shopee.co.id" target="_blank">
+                    <img src="baju1.jpeg" alt="Baju">
+                </a>
+                <h3>Baju</h3>
+                <p>Rp 150.000</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Kontak Kami</h2>
+        <p>Email: butiknuik.gmail.com</p>
+        <p>Telepon: +62 8956 0315 1891</p>
+        <p>Telepon ayangg: +62 895 1501 3096</p>
+    </section>
+</main>
+
+<footer>
+    <p>Email: butiknuik.gmail.com | Telepon: +62 8956 0315 1891</p>
+    <p>&copy; 2025 Butik Nuik. All rights reserved.</p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    function showCover(text) {
+        const cover = document.getElementById('cover');
+        cover.innerText = text;
+        cover.style.opacity = '1';
+        setTimeout(() => {
+            cover.style.opacity = '0';
+        }, 1000);
+    }
+    
+    function navigate(section, title) {
+        showCover('Membuka ' + title + '...');
+        document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+        document.getElementById(section).style.display = 'block';
+        document.getElementById('menu').style.display = 'none';
+        document.getElementById('menuTitle').innerText = title;
+    }
+    
+    let slideIndex = 0;
+    function slideShow() {
+        const slides = document.querySelectorAll(".slide");
+        slideIndex = (slideIndex + 1) % slides.length;
+        document.getElementById("slideContainer").style.transform = `translateX(-${slideIndex * 100}%)`;
+        setTimeout(slideShow, 3000);
+    }
+    slideShow();
+</script>
+
+</body>
+</html>
